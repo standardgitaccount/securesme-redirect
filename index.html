@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>We've Moved</title>
 
-  <!-- Automatic Redirect -->
-  <meta http-equiv="refresh" content="3; url=https://securesme.cyberalex.uk">
-
   <style>
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -49,7 +46,7 @@
 
     .small {
       font-size: 0.9rem;
-      opacity: 0.7;
+      opacity: 0.8;
       margin-top: 10px;
     }
   </style>
@@ -59,9 +56,39 @@
     <h1>We've Moved</h1>
     <p>
       Our site has moved to a new home:<br>
-      <a href="https://securesme.cyberalex.uk">securesme.cyberalex.uk</a>
+      <a href="https://securesme.cyberalex.uk" id="target-link">
+        securesme.cyberalex.uk
+      </a>
     </p>
-    <p class="small">You will be redirected automatically in 3 seconds…</p>
+    <p class="small">
+      Redirecting in <span id="counter">3</span>…
+    </p>
+    <p class="small" id="status"></p>
   </div>
+
+  <script>
+    (function () {
+      var targetUrl = "https://securesme.cyberalex.uk";
+      var counterEl = document.getElementById("counter");
+      var statusEl = document.getElementById("status");
+      var count = 3;
+
+      var interval = setInterval(function () {
+        count--;
+        if (count >= 0) {
+          counterEl.textContent = count;
+        }
+
+        if (count < 0) {
+          clearInterval(interval);
+          statusEl.textContent = "Redirecting you…";
+          // Small delay so the text can be seen
+          setTimeout(function () {
+            window.location.href = targetUrl;
+          }, 500);
+        }
+      }, 1000);
+    })();
+  </script>
 </body>
 </html>
